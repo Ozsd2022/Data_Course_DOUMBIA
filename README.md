@@ -7,3 +7,4 @@ Data Analysis class.
 This is my course respiratory.
 I am practicing Git.
 I an on my step 9.
+ My name is Ousmane Doumbia.
