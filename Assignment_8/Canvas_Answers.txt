@@ -1,0 +1,20 @@
+Assignment 8
+Review these answers alongside the output of Assignment_8.R before submitting.
+
+1. Yes. Of the four models compared, the quadratic model with species interactions has the lowest training mean squared error (approximately 3770.604). Holding Species at P.ostreotus, Humidity at High, Light at 10, and Temperature at 20, it predicts GrowthRate of approximately -68.91 at Nitrogen = 60 and -774.79 at Nitrogen = 100. If GrowthRate represents mushroom production/growth rather than a signed net change, these negative predictions are scientifically meaningless. Both nitrogen values exceed the observed range of 0 to 45. The quadratic curve eventually turns downward without a biological lower bound, so extrapolating it can give unrealistic results. Lowest training MSE among these models does not guarantee reliable predictions outside the observed data or on new samples.
+
+2. Yes. Average GrowthRate rises and then falls as Nitrogen increases, suggesting a curved relationship. The Light relationship also shows curvature across the three observed light levels. Polynomial terms such as I(Nitrogen^2) allow an lm model to describe a curved response while remaining linear in its estimated coefficients. Transformations or splines are other possible approaches. The official R documentation explains polynomial predictors and their use in model formulas:
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/poly.html
+Only three light levels were measured, so the shape between and beyond them is uncertain.
+
+3. The response in non_linear_relationship.csv is approximately a linear function of exp(predictor). The following code models that relationship with lm():
+
+nonlinear <- read.csv("Data/non_linear_relationship.csv")
+nonlinear_model <- lm(response ~ I(exp(predictor)), data = nonlinear)
+summary(nonlinear_model)
+plot(response ~ predictor, data = nonlinear)
+x <- data.frame(predictor = seq(min(nonlinear$predictor),
+                              max(nonlinear$predictor), length.out = 200))
+lines(x$predictor, predict(nonlinear_model, newdata = x), col = "blue")
+
+This is a linear model in the coefficients, even though the curve is nonlinear on the original predictor axis. The fitted equation is approximately response = 0.01772 + 0.99835 * exp(predictor).

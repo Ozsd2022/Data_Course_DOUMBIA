@@ -1,0 +1,9 @@
+"Light","Nitrogen","Temperature","Species","Humidity","PredictedGrowthRate","Extrapolated"
+10,0,20,"P.ostreotus","High",72.7268982324094,FALSE
+10,10,20,"P.ostreotus","High",125.553307502275,FALSE
+10,20,20,"P.ostreotus","High",147.806733398966,FALSE
+10,30,20,"P.ostreotus","High",139.487175922483,FALSE
+10,40,20,"P.ostreotus","High",100.594635072826,FALSE
+10,45,20,"P.ostreotus","High",69.6834958830573,FALSE
+10,60,20,"P.ostreotus","High",-68.9093967460107,TRUE
+10,100,20,"P.ostreotus","High",-774.793260861776,TRUE
