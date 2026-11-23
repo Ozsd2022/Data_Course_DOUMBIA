@@ -1,0 +1,91 @@
+---
+title: "Assignment 9: Graduate School Admissions"
+author: "Ousmane Doumbia"
+output: html_document
+---
+
+## Research question
+
+How are GRE score, GPA, and undergraduate institution rank associated with
+graduate school admission? Admission is coded as 1 for admitted and 0 for
+not admitted, so I will use logistic regression.
+
+## Load and clean the data
+
+```{r load-data}
+raw <- read.csv("../../Data/GradSchool_Admissions.csv")
+admissions <- raw[complete.cases(raw), ]
+admissions$rank <- factor(admissions$rank)
+
+nrow(raw)
+nrow(admissions)
+summary(admissions)
+```
+
+## Explore the data
+
+```{r admission-by-rank}
+admission_rate <- with(admissions, tapply(admit, rank, mean))
+round(100 * admission_rate, 1)
+
+barplot(
+  100 * admission_rate,
+  main = "Admission rate by institution rank",
+  xlab = "Undergraduate institution rank (1 = top tier)",
+  ylab = "Applicants admitted (%)",
+  ylim = c(0, 100),
+  col = "steelblue"
+)
+```
+
+The observed admission rate was highest for rank 1 (54.1%) and
+lowest for rank 4 (17.9%). These rates are calculated before
+accounting for GRE scores and GPA.
+
+```{r scores-by-admission, fig.width=9, fig.height=4}
+outcome <- factor(admissions$admit, levels = c(0, 1),
+                  labels = c("Not admitted", "Admitted"))
+
+par(mfrow = c(1, 2))
+boxplot(gre ~ outcome, data = admissions,
+        main = "GRE by admission outcome", ylab = "GRE score",
+        col = "lightblue")
+boxplot(gpa ~ outcome, data = admissions,
+        main = "GPA by admission outcome", ylab = "GPA",
+        col = "lightblue")
+par(mfrow = c(1, 1))
+```
+
+Admitted applicants had higher median GRE scores and GPAs, although
+the distributions overlapped in both plots.
+
+## Logistic regression
+
+I compare a model with GRE and GPA to a model that also includes
+institution rank. This tests whether rank adds information about
+admission after accounting for GRE and GPA.
+
+```{r compare-models}
+model_scores <- glm(admit ~ gre + gpa,
+                    data = admissions, family = binomial())
+
+model_full <- glm(admit ~ gre + gpa + rank,
+                  data = admissions, family = binomial())
+
+AIC(model_scores, model_full)
+anova(model_scores, model_full, test = "Chisq")
+summary(model_full)
+```
+
+## Conclusion
+
+I selected the model with GRE score, GPA, and institution rank because
+it had a lower AIC than the model with GRE and GPA alone (470.52 vs.
+486.34). The likelihood-ratio test also showed that adding institution
+rank improved model fit (p = 0.000071).
+
+In the full model, higher GRE scores and GPAs were associated with
+higher odds of admission. At the same GRE score and GPA, applicants
+from rank 4 institutions had about 79% lower estimated odds of
+admission than applicants from rank 1 institutions. These results
+describe associations in this sample.
