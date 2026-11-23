@@ -1,0 +1,19 @@
+1. Extract the Assignment_8 folder into your course repository.
+2. Double-click Assignment_8.Rproj to open the project in RStudio.
+3. Open Assignment_8.R and click Source. No extra R packages are required.
+4. Check the Console and the PDFs/CSVs generated in Results.
+5. Review Canvas_Answers.txt in your own words and against your output.
+6. Commit and push Assignment_8.Rproj, Assignment_8.R, Data, and Results to your course GitHub repository. Check that the files appear on GitHub.
+7. Upload Canvas_Answers.txt to Assignment 8 in Canvas and click Submit Assignment.
+
+The analysis was independently checked using Python least squares. R is not installed in the preparation environment, so the R script still needs to be run in RStudio.
+Expected training MSE:
+Light_only: 7702.834070
+Additive: 5146.039026
+Quadratic: 3967.982523
+Quadratic_interactions: 3770.604189
+
+Source:
+https://gzahn.github.io/data-course/Repository/Assignments/Assignment_8/Assignment_8.html
+Data were downloaded from the course Repository/Data directory.
+No GitHub push or Canvas submission has been performed.

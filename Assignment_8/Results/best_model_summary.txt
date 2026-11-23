@@ -1,0 +1,29 @@
+
+Call:
+lm(formula = GrowthRate ~ Light + I(Light^2) + Nitrogen + I(Nitrogen^2) + 
+    Temperature + Species + Humidity + Species:Light + Species:Nitrogen, 
+    data = mushrooms)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-137.61  -38.99   -0.36   31.03  353.45 
+
+Coefficients:
+                             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                 176.36473   41.59798   4.240 3.38e-05 ***
+Light                        -1.15932    1.96057  -0.591  0.55495    
+I(Light^2)                    0.41795    0.09076   4.605 7.21e-06 ***
+Nitrogen                      6.43966    1.10952   5.804 2.42e-08 ***
+I(Nitrogen^2)                -0.15286    0.02327  -6.569 4.05e-10 ***
+Temperature                  -3.83938    1.71132  -2.244  0.02593 *  
+SpeciesP.ostreotus          -23.31423   19.03726  -1.225  0.22210    
+HumidityLow                 -86.57834    8.55661 -10.118  < 2e-16 ***
+Light:SpeciesP.ostreotus     -3.37377    1.04797  -3.219  0.00149 ** 
+Nitrogen:SpeciesP.ostreotus   0.37163    0.57400   0.647  0.51807    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 62.88 on 206 degrees of freedom
+Multiple R-squared:  0.6124,	Adjusted R-squared:  0.5955 
+F-statistic: 36.17 on 9 and 206 DF,  p-value: < 2.2e-16
+
